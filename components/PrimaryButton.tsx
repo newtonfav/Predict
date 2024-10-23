@@ -1,9 +1,17 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
-export default function PrimaryButton({ children }: { children: string }) {
+export default function PrimaryButton({
+  children,
+  onPress,
+}: {
+  children: string;
+  onPress?: () => void;
+}) {
   function handlePress() {
-    console.log("pressed");
+    if (!onPress) return;
+
+    onPress();
   }
 
   return (

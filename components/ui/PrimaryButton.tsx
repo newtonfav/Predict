@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
 
@@ -6,7 +6,7 @@ export default function PrimaryButton({
   children,
   onPress,
 }: {
-  children: string;
+  children: ReactNode;
   onPress?: () => void;
 }) {
   function handlePress() {

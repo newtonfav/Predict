@@ -4,18 +4,44 @@ import StartGameScreen from "./screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import GameScreen from "./screens/GameScreen";
 import { Colors } from "./constants/colors";
+import GameOverScreen from "./screens/GameOverScreen";
+import { useFonts } from "expo-font";
+// import * as SplashScreen from "expo-splash-screen";
+import AppLoading from "expo-app-loading";
 
+// SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [userNumber, setUserNumber] = useState<number | null>();
+  const [gameOver, setGameOver] = useState<boolean>(false);
+
+  const [fontsLoaded] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    // SplashScreen.hideAsync();
+    return <AppLoading />;
+  }
 
   function pickNumberHandler(pickedNumber: number) {
     setUserNumber(pickedNumber);
   }
 
+  function gameOverHandler() {
+    setGameOver(true);
+  }
+
   let screen = <StartGameScreen onPickNumber={pickNumberHandler} />;
 
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} />;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
+  }
+
+  if (gameOver) {
+    screen = <GameOverScreen />;
   }
 
   return (
@@ -29,7 +55,6 @@ export default function App() {
         style={styles.rootContainer}
         imageStyle={styles.backgroundImage}
       >
-        {/* {screen} */}
         <SafeAreaView style={styles.rootContainer}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
@@ -38,7 +63,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   rootContainer: {
-    // backgroundColor: "#ddb52f",
     flex: 1,
   },
   backgroundImage: {

@@ -13,6 +13,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [userNumber, setUserNumber] = useState<number | null>();
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [guessRounds, setGuessRounds] = useState(0);
 
   const [fontsLoaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -24,8 +25,6 @@ export default function App() {
       async function hideSplashScreen() {
         await SplashScreen.hideAsync();
       }
-
-      console.log(fontsLoaded);
 
       if (fontsLoaded) {
         hideSplashScreen();
@@ -40,10 +39,16 @@ export default function App() {
 
   function pickNumberHandler(pickedNumber: number) {
     setUserNumber(pickedNumber);
+    setGameOver(false);
   }
 
   function gameOverHandler() {
     setGameOver(true);
+  }
+
+  function startNewGameHandler() {
+    setUserNumber(null);
+    setGuessRounds(0);
   }
 
   let screen = <StartGameScreen onPickNumber={pickNumberHandler} />;
@@ -54,8 +59,14 @@ export default function App() {
     );
   }
 
-  if (gameOver) {
-    screen = <GameOverScreen />;
+  if (gameOver && userNumber) {
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber!}
+        roundsNumber={guessRounds}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
   }
 
   return (

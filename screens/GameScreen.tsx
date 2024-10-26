@@ -26,11 +26,7 @@ export default function GameScreen({
   userNumber: number;
   onGameOver: () => void;
 }) {
-  const initialGuess = generateRandomNumber(
-    minBoundary,
-    maxBoundary,
-    userNumber
-  );
+  const initialGuess = generateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentguess] = useState(initialGuess);
 
   useEffect(
@@ -41,6 +37,10 @@ export default function GameScreen({
     },
     [currentGuess, userNumber, onGameOver]
   );
+
+  useEffect(function () {
+    (minBoundary = 1), (maxBoundary = 100);
+  }, []);
 
   function nextGuessHandler(direction: "lower" | "higher") {
     if (

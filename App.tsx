@@ -7,9 +7,9 @@ import { Colors } from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-// import AppLoading from "expo-app-loading";
 
 SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [userNumber, setUserNumber] = useState<number | null>();
   const [gameOver, setGameOver] = useState<boolean>(false);

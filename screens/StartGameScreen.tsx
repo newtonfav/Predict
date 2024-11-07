@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Alert, Text } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { Colors } from "../constants/colors";

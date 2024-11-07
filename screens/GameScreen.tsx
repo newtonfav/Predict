@@ -28,6 +28,7 @@ export default function GameScreen({
 }) {
   const initialGuess = generateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentguess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   useEffect(
     function () {
@@ -39,7 +40,8 @@ export default function GameScreen({
   );
 
   useEffect(function () {
-    (minBoundary = 1), (maxBoundary = 100);
+    minBoundary = 1;
+    maxBoundary = 100;
   }, []);
 
   function nextGuessHandler(direction: "lower" | "higher") {
@@ -66,6 +68,7 @@ export default function GameScreen({
       currentGuess
     );
     setCurrentguess(newRandomNum);
+    setGuessRounds((prev) => [newRandomNum, ...prev]);
   }
 
   return (
@@ -89,7 +92,11 @@ export default function GameScreen({
           </View>
         </View>
       </Card>
-      <Text>Log Rounds</Text>
+      {guessRounds.map((rounds) => (
+        <View key={rounds}>
+          <Text>{rounds}</Text>
+        </View>
+      ))}
     </View>
   );
 }

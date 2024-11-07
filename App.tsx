@@ -7,6 +7,7 @@ import { Colors } from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,8 +43,9 @@ export default function App() {
     setGameOver(false);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(numberOfRounds: number) {
     setGameOver(true);
+    setGuessRounds(numberOfRounds);
   }
 
   function startNewGameHandler() {
@@ -70,19 +72,22 @@ export default function App() {
   }
 
   return (
-    <LinearGradient
-      style={styles.rootContainer}
-      colors={[Colors.primary400, Colors.secondary100]}
-    >
-      <ImageBackground
-        source={require("./assets/background.png")}
-        resizeMode="cover"
+    <>
+      <StatusBar style="light" />
+      <LinearGradient
         style={styles.rootContainer}
-        imageStyle={styles.backgroundImage}
+        colors={[Colors.primary400, Colors.secondary100]}
       >
-        <SafeAreaView style={styles.rootContainer}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+        <ImageBackground
+          source={require("./assets/background.png")}
+          resizeMode="cover"
+          style={styles.rootContainer}
+          imageStyle={styles.backgroundImage}
+        >
+          <SafeAreaView style={styles.rootContainer}>{screen}</SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
